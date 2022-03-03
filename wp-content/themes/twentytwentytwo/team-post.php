@@ -18,9 +18,6 @@ function add_custom_post_type_slider() {
         'parent_item_colon' => '',
         'menu_name' => 'Teams'
     );
-
-// args array
-
     $args = array(
         'labels' => $labels,
         'description' => 'Displays teams',
@@ -64,7 +61,7 @@ function team_meta_boxes_html() {
     echo $html;
 }
 
-add_action('admin_enqueue_script', 'register_and_enqueue_script');
+add_action('admin_enqueue_scripts', 'register_and_enqueue_script');
 
 function register_and_enqueue_script($hook) {
     if (get_post_type() === 'team') {
@@ -123,9 +120,13 @@ function team_members_slider_shortcode() {
 add_action('wp_enqueue_scripts', 'enqueue_team_script');
 
 function enqueue_team_script() {
-    wp_enqueue_script('jQuery', 'https://code.jquery.com/jquery-3.6.0.min.js', array());
-    wp_enqueue_script('swiper', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.6/swiper-bundle.min.js', array());
-    wp_enqueue_script('team_swiper', get_template_directory_uri() . '/assets/team-assets/team-script.js', array());
-    wp_enqueue_style('swiper-team-', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.6/swiper-bundle.css', array());
-    wp_enqueue_style('team-style', get_template_directory_uri() . '/assets/team-assets/teamstyle.css', array());
+    global $post;
+    if (has_shortcode($post->post_content, 'team_members_slider')) {
+        wp_enqueue_script('jQuery', 'https://code.jquery.com/jquery-3.6.0.min.js', array());
+        wp_enqueue_script('swiper', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.6/swiper-bundle.min.js', array());
+        wp_enqueue_script('team_swiper', get_template_directory_uri() . '/assets/team-assets/team-script.js', array());
+        wp_enqueue_style('swiper-team-', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.6/swiper-bundle.css', array());
+        wp_enqueue_style('team-style', get_template_directory_uri() . '/assets/team-assets/teamstyle.css', array());
+    }
 }
+ 

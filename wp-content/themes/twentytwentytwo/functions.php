@@ -8,7 +8,10 @@
  * @subpackage Twenty_Twenty_Two
  * @since Twenty Twenty-Two 1.0
  */
+include_once 'register-scripts.php';
 include_once 'team-post.php';
+include_once 'accordion/accordion.php';
+include_once 'dynamic-shortcode/hero-shortcode.php';
 
 if ( ! function_exists( 'twentytwentytwo_support' ) ) :
 
